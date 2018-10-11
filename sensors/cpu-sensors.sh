@@ -1,15 +1,16 @@
 #!/bin/sh
 
-t="/var/cache/cacti/sensors.tmp"
-rm -f $t
-sensors >$t
+file=`mktemp -u /var/cache/cacti/sensors.XXXXXXXXX.tmp`
+sensors >$file
 
-acpi="`grep \"temp1:\" $t |head -n1 |sed s/[+C°]//g |awk \"{ print \\\$2 }\"`"
+acpi="`grep \"temp1:\" $file |head -n1 |sed s/[+C°]//g |awk \"{ print \\\$2 }\"`"
 
-core0="`grep \"Core 0:\" $t |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
-core1="`grep \"Core 1:\" $t |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
-core2="`grep \"Core 2:\" $t |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
-core3="`grep \"Core 3:\" $t |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
+core0="`grep \"Core 0:\" $file |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
+core1="`grep \"Core 1:\" $file |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
+core2="`grep \"Core 2:\" $file |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
+core3="`grep \"Core 3:\" $file |sed s/[+C°]//g |awk \"{ print \\\$3 }\"`"
+
+rm -f $file
 
 if [ "$acpi" = "" ]; then acpi=0; fi
 
