@@ -1,6 +1,6 @@
 #!/bin/sh
 
-file=`mktemp -u /var/cache/cacti/sensors.XXXXXXXXX.tmp`
+file=`mktemp -u /var/cache/cacti/sensors.XXXXXX`
 sensors >$file
 
 acpi="`grep \"temp1:\" $file |head -n1 |sed s/[+C°]//g |awk \"{ print \\\$2 }\"`"
