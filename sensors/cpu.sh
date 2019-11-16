@@ -13,6 +13,10 @@ elif [ -f /etc/config/qpkg.conf ]; then
 elif [ -f /etc/rpi-issue ]; then
 	/opt/farm/ext/thermal-utils/sensors/cpu-raspi.sh
 
+# NanoPi-NEO2, other SBCs with Allwinner CPU
+elif grep -iq allwinner /proc/cpuinfo; then
+	/opt/farm/ext/thermal-utils/sensors/cpu-allwinner.sh
+
 # CompuLab Fit-PC2
 # http://www.fit-pc.com/web/products/fit-pc2/
 # http://www.fit-pc.com/forum/viewtopic.php?f=9&t=401
