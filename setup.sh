@@ -10,7 +10,10 @@ if [ "`grep Hardware /proc/cpuinfo |grep QNAP`" != "" ] && [ -f /etc/debian_vers
 fi
 
 # https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1079544
-if grep -q "ProLiant MicroServer Gen8" /sys/class/dmi/id/product_name && [ -d /etc/sensors.d ]; then
+if [ -d /etc/sensors.d ] && [ -f /sys/class/dmi/id/product_name ] && grep -q "ProLiant MicroServer Gen8" /sys/class/dmi/id/product_name; then
 	echo "setting up HP ProLiant ACPI fix"
 	install_copy /opt/farm/ext/thermal-utils/support/hp-proliant-acpi/hp-acpi-fix.conf /etc/sensors.d/hp-acpi-fix.conf
 fi
+
+# how to install TemperNTC drivers:
+# /opt/farm/ext/farm-roles/install.sh temperntc
