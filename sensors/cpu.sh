@@ -13,6 +13,10 @@ elif [ -f /etc/config/qpkg.conf ]; then
 elif [ -f /etc/rpi-issue ]; then
 	/opt/farm/ext/thermal-utils/sensors/cpu-raspi.sh
 
+# Asus Tinker Board
+elif [ -s /etc/init.d/tinker_init.sh ]; then
+	/opt/farm/ext/thermal-utils/sensors/cpu-tinker.sh
+
 # NanoPi-NEO2, other SBCs with Allwinner CPU
 elif grep -iq allwinner /proc/cpuinfo; then
 	/opt/farm/ext/thermal-utils/sensors/cpu-allwinner.sh
